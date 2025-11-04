@@ -6,5 +6,6 @@ public static class ServiceCollectionExtensions
         => services
             .AddSingleton<DataFactory>()
             .AddSingleton<DataSource>(p => p.GetRequiredService<DataFactory>().Init())
+            .AddSingleton<IRepositoryCollection, RepositoryCollection>()
         ;
 }
