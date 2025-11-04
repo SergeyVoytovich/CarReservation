@@ -1,11 +1,17 @@
 ﻿@inject IStringLocalizer<Resources> Localizer
 @inject BookingViewModel ViewModel
-   
+
 
 <MudItem xs="4">
     <MudPaper Elevation="0" Class="mud-width-fiull pa-2 ma-2">
-        <Combobox T="string"
-                  Label="@Localizer[nameof(Resources.Book_City)]" />
+        <Combobox T="City"
+                  Label="@Localizer[nameof(Resources.Book_City)]"
+                  @bind-Value="@ViewModel.City"
+                  Items="@ViewModel.Cities">
+            <CellTemplate Context="city">
+                <span>@city.Name</span>
+            </CellTemplate>
+        </Combobox>
     </MudPaper>
 </MudItem>
 

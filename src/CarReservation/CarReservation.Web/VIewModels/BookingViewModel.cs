@@ -1,11 +1,14 @@
 ﻿using CarReservation.Web.Domain;
+using CarReservation.Web.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace CarReservation.Web.VIewModels;
 
-public partial class BookingViewModel : ViewModelBase
+public partial class BookingViewModel(IBookingService service) : ViewModelBase
 {
+
+    protected virtual IBookingService Service { get; } = service;
 
     [ObservableProperty]
     private City? city;
@@ -20,8 +23,9 @@ public partial class BookingViewModel : ViewModelBase
     [ObservableProperty]
     private IList<City> cities = [];
 
-    protected override Task DoInitializeAsync()
+    protected override async Task DoInitializeAsync()
     {
-        return Task.Delay(TimeSpan.FromSeconds(1));
+        await Task.Delay(TimeSpan.FromMilliseconds(500));
+        Cities = (await Service.GetCities()).OrderBy(i => i.Name, StringComparer.OrdinalIgnoreCase).ToList();
     }
 }
