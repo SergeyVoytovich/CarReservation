@@ -1,7 +1,14 @@
 using CarReservation.Web.Components;
 using CarReservation.Web.Data;
+using CarReservation.Web.Navigation;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddLocalization();
+
+// Third party
+builder.Services.AddMudServices();
 
 // Add services to the container.
 builder.Services
@@ -16,7 +23,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    app.UseExceptionHandler(UriCollection.Error, createScopeForErrors: true);
 }
 
 

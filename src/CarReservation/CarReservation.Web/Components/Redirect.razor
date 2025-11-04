@@ -1,0 +1,18 @@
+﻿@inject NavigationManager Navigator
+
+Redirect to @Uri
+
+@code 
+{
+    [Parameter]
+    public string Uri { get; set; } = string.Empty;
+
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(Uri))
+        {
+            Navigator.NavigateTo(Uri);
+        }
+    }
+}
