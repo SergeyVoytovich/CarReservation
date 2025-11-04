@@ -1,6 +1,7 @@
 using CarReservation.Web.Components;
 using CarReservation.Web.Data;
 using CarReservation.Web.Navigation;
+using CarReservation.Web.VIewModels;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +17,9 @@ builder.Services
     .AddInteractiveServerComponents();
 
 // Add custim services
-builder.Services.AddData();
+builder.Services
+        .AddData()
+        .AddViewModels();
 
 var app = builder.Build();
 

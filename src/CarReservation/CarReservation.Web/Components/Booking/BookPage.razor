@@ -1,15 +1,13 @@
-﻿@attribute [Route(UriCollection.Book)]
+﻿@inherits ViewBase<BookingViewModel>
+
+@attribute [Route(UriCollection.Book)]
 
 @inject IStringLocalizer<Resources> Localizer
 
 <Title Value="@Localizer[nameof(Resources.Book_Title)]" />
 
 <MudGrid>
-
-   <SearchItems />
-
+    <LoadingContainer IsLoading=ViewModel.IsInitialing>
+        <SearchItems />
+    </LoadingContainer>
 </MudGrid>
-
-@code {
-
-}
