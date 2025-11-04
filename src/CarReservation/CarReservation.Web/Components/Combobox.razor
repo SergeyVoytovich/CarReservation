@@ -1,0 +1,35 @@
+﻿@typeparam T
+
+<MudSelect Value="@Value"
+           ValueChanged="ValueChanged"
+           Clearable=true
+           Variant="Variant.Outlined"
+           Label="@Label">
+    @foreach (var item in Items)
+    {
+        <MudSelectItem T="T" Value="item">
+            @CellTemplate(item)
+        </MudSelectItem>
+    }
+</MudSelect>
+
+@code
+{
+    [Parameter]
+    public T? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<T> ValueChanged { get; set; } = EventCallback<T>.Empty;
+
+    [Parameter]
+    public IList<T> Items { get; set; } = [];
+
+    [Parameter]
+    public RenderFragment<T> CellTemplate { get; set; } = (item) => (builder) =>
+    {
+        builder.AddContent(0, item?.ToString());
+    };
+
+    [Parameter]
+    public string Label { get; set; } = string.Empty;
+}

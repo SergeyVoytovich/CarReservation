@@ -61,6 +61,33 @@ namespace CarReservation.Web.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        public static string Book_City {
+            get {
+                return ResourceManager.GetString("Book_City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Till.
+        /// </summary>
+        public static string Book_EndDate {
+            get {
+                return ResourceManager.GetString("Book_EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From.
+        /// </summary>
+        public static string Book_StartDate {
+            get {
+                return ResourceManager.GetString("Book_StartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Book a car.
         /// </summary>
         public static string Book_Title {

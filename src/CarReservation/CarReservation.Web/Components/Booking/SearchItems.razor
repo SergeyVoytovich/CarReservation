@@ -1,0 +1,28 @@
+﻿@inject IStringLocalizer<Resources> Localizer
+
+<MudItem xs="4">
+    <MudPaper Elevation="0" Class="mud-width-fiull pa-2 ma-2">
+        <Combobox T="string"
+                  Label="@Localizer[nameof(Resources.Book_City)]" />
+    </MudPaper>
+</MudItem>
+
+<MudItem xs="4">
+    <MudPaper Elevation="0" Class="mud-width-fiull pa-2 ma-2">
+        <MudDatePicker MinDate="@DateTime.Now"
+                       Variant="Variant.Outlined"
+                       Label="@Localizer[nameof(Resources.Book_StartDate)]" />
+    </MudPaper>
+</MudItem>
+
+<MudItem xs="4">
+    <MudPaper Elevation="0" Class="mud-width-fiull pa-2 ma-2">
+        <MudDatePicker MinDate="@DateTime.Now"
+                       Variant="Variant.Outlined"
+                       Label="@Localizer[nameof(Resources.Book_EndDate)]" />
+    </MudPaper>
+</MudItem>
+
+@code {
+
+}

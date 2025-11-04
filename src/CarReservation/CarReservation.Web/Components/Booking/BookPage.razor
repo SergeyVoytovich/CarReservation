@@ -1,6 +1,14 @@
 ﻿@attribute [Route(UriCollection.Book)]
 
-<h1>Book a car</h1>
+@inject IStringLocalizer<Resources> Localizer
+
+<Title Value="@Localizer[nameof(Resources.Book_Title)]" />
+
+<MudGrid>
+
+   <SearchItems />
+
+</MudGrid>
 
 @code {
 
