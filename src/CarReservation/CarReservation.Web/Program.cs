@@ -1,10 +1,15 @@
 using CarReservation.Web.Components;
+using CarReservation.Web.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorComponents()
+builder.Services
+    .AddRazorComponents()
     .AddInteractiveServerComponents();
+
+// Add custim services
+builder.Services.AddData();
 
 var app = builder.Build();
 
