@@ -30,16 +30,16 @@ internal class DataFactory
 
     private IEnumerable<CarType> CarTypes()
     {
-        yield return new CarType { Id = Guid.NewGuid(), Make = "Volkswagen", Model = "Golf", ImageUrl = "" };
-        yield return new CarType { Id = Guid.NewGuid(), Make = "BMW", Model = "3 Series", ImageUrl = "" };
-        yield return new CarType { Id = Guid.NewGuid(), Make = "Audi", Model = "A4", ImageUrl = "" };
-        yield return new CarType { Id = Guid.NewGuid(), Make = "Mercedes-Benz", Model = "C-Class", ImageUrl = "" };
-        yield return new CarType { Id = Guid.NewGuid(), Make = "Toyota", Model = "Corolla", ImageUrl = "" };
-        yield return new CarType { Id = Guid.NewGuid(), Make = "Ford", Model = "Focus", ImageUrl = "" };
-        yield return new CarType { Id = Guid.NewGuid(), Make = "Honda", Model = "Civic", ImageUrl = "" };
-        yield return new CarType { Id = Guid.NewGuid(), Make = "Tesla", Model = "Model 3", ImageUrl = "" };
-        yield return new CarType { Id = Guid.NewGuid(), Make = "Mazda", Model = "6", ImageUrl = "" };
-        yield return new CarType { Id = Guid.NewGuid(), Make = "Škoda", Model = "Octavia", ImageUrl = "" };
+        yield return new CarType { Id = Guid.NewGuid(), Make = "Volkswagen", Model = "Golf" };
+        yield return new CarType { Id = Guid.NewGuid(), Make = "BMW", Model = "3 Series" };
+        yield return new CarType { Id = Guid.NewGuid(), Make = "Audi", Model = "A4" };
+        yield return new CarType { Id = Guid.NewGuid(), Make = "Mercedes-Benz", Model = "C-Class" };
+        yield return new CarType { Id = Guid.NewGuid(), Make = "Toyota", Model = "Corolla" };
+        yield return new CarType { Id = Guid.NewGuid(), Make = "Ford", Model = "Focus" };
+        yield return new CarType { Id = Guid.NewGuid(), Make = "Honda", Model = "Civic" };
+        yield return new CarType { Id = Guid.NewGuid(), Make = "Tesla", Model = "Model 3" };
+        yield return new CarType { Id = Guid.NewGuid(), Make = "Mazda", Model = "6" };
+        yield return new CarType { Id = Guid.NewGuid(), Make = "Škoda", Model = "Octavia" };
     }
 
     private IEnumerable<Car> Cars(IEnumerable<City> cities, IEnumerable<CarType> carTypes)
