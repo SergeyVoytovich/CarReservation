@@ -30,7 +30,7 @@
                Color="Color.Primary"
                Size="Size.Large"
                Style="margin: 14px;"
-               OnClick="ViewModel.SearchCommand.ExecuteAsync"
+               OnClick="@ViewModel.ToSearchCommand.ExecuteAsync"
                Disabled=@(!ViewModel.CanSearch)>
         @Localizer[nameof(Resources.Book_SearchButton)]
     </MudButton>

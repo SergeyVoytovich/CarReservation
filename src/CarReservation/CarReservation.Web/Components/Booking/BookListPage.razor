@@ -1,0 +1,40 @@
+﻿@inherits ViewBase<BookingViewModel>
+
+@attribute [Route(UriCollection.Book.Root)]
+
+@inject IStringLocalizer<Resources> Localizer
+
+<Title Value="@Localizer[nameof(Resources.Book_Title)]" />
+
+<MudGrid>
+    <CascadingValue Value="ViewModel">
+        <LoadingContainer IsLoading=@(!ViewModel.IsInitialized || ViewModel.IsInitialing)>
+            <BookingFilter />
+        </LoadingContainer>
+        @if (!ViewModel.IsInitialing)
+        {
+            <LoadingContainer IsLoading=@ViewModel.IsSearching>
+                <BookingList />
+            </LoadingContainer>
+        }
+    </CascadingValue>
+</MudGrid>
+
+
+@code
+{
+    [SupplyParameterFromQuery(Name = UriCollection.Book.Parameters.CityId)]
+    public Guid? CityId { get; set; }
+
+    [SupplyParameterFromQuery(Name = UriCollection.Book.Parameters.From)]
+    public DateTime? From { get; set; } 
+
+    [SupplyParameterFromQuery(Name = UriCollection.Book.Parameters.Till)]
+    public DateTime? Till { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await ViewModel.InitializeAsync(CityId, From, Till);
+    }
+
+}

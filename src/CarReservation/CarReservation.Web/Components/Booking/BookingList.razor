@@ -1,4 +1,6 @@
-﻿<MudItem xs="12">
+﻿@inject IStringLocalizer<Resources> Localizer
+
+<MudItem xs="12">
     <MudDataGrid Items="ViewModel.BookingItems"
                  Filterable=true
                  SortMode="SortMode.Multiple"
@@ -7,6 +9,16 @@
             <PropertyColumn Property="p => p.Name" />
             <PropertyColumn Property="p => p.LicensePlate" />
             <PropertyColumn Property="p => p.TotalPrice" />
+            <TemplateColumn Class="Bookings">
+                <CellTemplate>
+                    <MudButton Size="Size.Small"
+                               Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               OnClick="@(async e => await ViewModel.BookCommand.ExecuteAsync(context.Item))">
+                        @Localizer[nameof(Resources.Book_BookButton)]
+                    </MudButton>
+                </CellTemplate>
+            </TemplateColumn>
         </Columns>
     </MudDataGrid>
 </MudItem>

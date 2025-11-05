@@ -8,10 +8,18 @@ public class ViewBase<T> : ComponentBase where T : InitializedViewModelBase
     [Inject]
     public T ViewModel { get; set; } = null!;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnInitializedAsync();
-        ViewModel.PropertyChanging += (_, e) => StateHasChanged();
-        await ViewModel.InitializeAsync();
+        await base.OnAfterRenderAsync(firstRender);
+
+        if(!firstRender)
+        {
+            return;
+        }
+
+        ViewModel.PropertyChanging += (_, e) => SynchronizationContext.Current?.Post(_ => StateHasChanged(), null);
+        await InitializeViewModelAsync();
     }
+
+    protected virtual Task InitializeViewModelAsync() => ViewModel.InitializeAsync();
 }
