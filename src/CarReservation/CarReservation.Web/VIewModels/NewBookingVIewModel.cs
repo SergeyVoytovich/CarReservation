@@ -125,22 +125,11 @@ public partial class NewBookingViewModel(IBookingService service, IMapper mapper
     protected virtual async Task BookAsync()
     {
         IsBooking = true;
-
         
         var result = await Service.BookAsync(Mapper.Map<Booking>(this));
 
-        if (result == BookingResult.Succes)
-        {
-            CanBook = false;
-            IsSuccess = true;
-            IsError = false;
-        }
-        else
-        {
-            CanBook = true;
-            IsSuccess = false;
-            IsError = true;
-        }
+        IsSuccess = result == BookingResult.Succes;
+        CanBook = IsError = !IsSuccess;
 
         IsBooking = false;
     }
