@@ -5,6 +5,6 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddViewModels(this IServiceCollection services)
         => services
             .AddTransient<BookingSearchViewModel>()
-            .AddTransient<NewBookingVIewModel>()
+            .AddTransient<NewBookingViewModel>()
         ;
 }

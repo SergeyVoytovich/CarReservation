@@ -17,7 +17,11 @@ public class ViewBase<T> : ComponentBase where T : InitializedViewModelBase
             return;
         }
 
-        ViewModel.PropertyChanging += (_, e) => SynchronizationContext.Current?.Post(_ => StateHasChanged(), null);
+        ViewModel.PropertyChanging += (_, e) =>
+        {
+            StateHasChanged();
+            SynchronizationContext.Current?.Post(_ => StateHasChanged(), null);
+        };
         await InitializeViewModelAsync();
     }
 

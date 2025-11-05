@@ -1,102 +1,30 @@
-﻿@attribute [Route(UriCollection.Booking.New)]
+﻿@inherits ViewBase<NewBookingViewModel>
+
+@attribute [Route(UriCollection.Booking.New)]
 
 @inject IStringLocalizer<Resources> Localizer
-@inject NewBookingVIewModel ViewModel
 
-<Title Value="@Localizer[nameof(Resources.Book_New_Title)]" />
+<Title Value="@(ViewModel.IsSuccess ? Localizer[nameof(Resources.Book_Confirmed)] : Localizer[nameof(Resources.Book_New_Title)])" />
 
-<LoadingContainer IsLoading=@ViewModel.IsInitialing>
-    <MudGrid>
+<Alert IsVisible=@ViewModel.IsError
+       Severity="Severity.Error">
+    @Localizer[nameof(Resources.Book_UnableToComplete)]
+</Alert>
 
-        @if (ViewModel.IsError)
-        {
-            <MudItem xs=12>
-                <MudContainer Class="d-flex justify-center error">
-                    @Localizer[nameof(Resources.Book_UnableToComplete)]
-                </MudContainer>
-            </MudItem>
-        }
+<Alert IsVisible=@ViewModel.IsSuccess
+       Severity="Severity.Success">
+    @Localizer[nameof(Resources.Booking_Successful)]
+</Alert>
 
-        @if (ViewModel.IsSuccess)
-        {
-            <MudItem xs=12>
-                <MudContainer Class="d-flex justify-center successfull">
-                    @Localizer[nameof(Resources.Booking_Successful)]
-                </MudContainer>
-            </MudItem>
-        }
+<MudGrid>
+    <CascadingValue Value="ViewModel">
+        <Loader IsLoading=@(!ViewModel.IsInitialized || ViewModel.IsBusy)>
+            <NewBookingForm />
+        </Loader>
+    </CascadingValue>
+</MudGrid>
 
-        @if (ViewModel.CanBook)
-        {
-            <MudItem xs=4>
-                <MudTextField Value="ViewModel.City?.Name"
-                              ReadOnly=true
-                              Label="@Localizer[nameof(Resources.Book_City)]" />
-            </MudItem>
 
-            <MudItem xs=4>
-                <MudTextField Value="@($"{ViewModel.Car?.Make} {ViewModel.Car?.Model}")"
-                              ReadOnly=true
-                              Label="@Localizer[nameof(Resources.Book_Car)]" />
-            </MudItem>
-
-            <MudItem xs=4>
-                <MudTextField Value="ViewModel.Car?.LicensePlate"
-                              ReadOnly=true
-                              Label="@Localizer[nameof(Resources.Book_LicencePlate)]" />
-            </MudItem>
-
-            <MudItem xs="6">
-                <MudTextField Value="@ViewModel.StartDate"
-                              ReadOnly=true
-                              Label="@Localizer[nameof(Resources.Book_StartDate)]" />
-            </MudItem>
-
-            <MudItem xs="6">
-                <MudTextField Value="@ViewModel.EndDate"
-                              ReadOnly=true
-                              Label="@Localizer[nameof(Resources.Book_EndDate)]" />
-            </MudItem>
-
-            <MudItem xs="6">
-                <MudTextField Value="@ViewModel.Car?.PricePerDay"
-                              ReadOnly=true
-                              Format="C"
-                              Label="@Localizer[nameof(Resources.Book_PricePerDay)]" />
-            </MudItem>
-
-            <MudItem xs="6">
-                <MudTextField Value="@ViewModel.TotalPrice"
-                              ReadOnly=true
-                              Format="C"
-                              Label="@Localizer[nameof(Resources.Book_Price)]" />
-            </MudItem>
-        }
-
-        <MudItem xs=6>
-            <MudButton Variant="Variant.Filled"
-                       Color="Color.Default"
-                       Size="Size.Medium"
-                       OnClick="@ViewModel.BackCommand.ExecuteAsync">
-                @Localizer[nameof(Resources.Book_Back)]
-            </MudButton>
-        </MudItem>
-
-        <MudItem xs=6>
-            @if (!ViewModel.IsError)
-            {
-                <MudButton Variant="Variant.Filled"
-                           Color="Color.Primary"
-                           Size="Size.Medium"
-                           OnClick="@ViewModel.BookCommand.ExecuteAsync"
-                           Disabled=@(!ViewModel.CanBook)>
-                    @Localizer[nameof(Resources.Book_BookButton)]
-                </MudButton>
-            }
-        </MudItem>
-
-    </MudGrid>
-</LoadingContainer>
 
 @code
 {
@@ -108,6 +36,8 @@
 
     [SupplyParameterFromQuery(Name = UriCollection.Booking.Parameters.Till)]
     public DateTime? Till { get; set; }
+
+    protected override Task InitializeViewModelAsync() => Task.CompletedTask;
 
     protected override async Task OnParametersSetAsync()
     {

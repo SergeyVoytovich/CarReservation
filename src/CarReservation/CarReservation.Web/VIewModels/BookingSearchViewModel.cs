@@ -58,7 +58,6 @@ public partial class BookingSearchViewModel(IBookingService service, IMapper map
 
     protected override async Task DoInitializeAsync()
     {
-        await Task.Delay(TimeSpan.FromMilliseconds(500));
         Cities = (await Service.GetCities()).OrderBy(i => i.Name, StringComparer.OrdinalIgnoreCase).ToList();
         StartDate ??= DateTime.Now.Date;
         MinStartDate = DateTime.Now.Date;
@@ -122,7 +121,6 @@ public partial class BookingSearchViewModel(IBookingService service, IMapper map
 
         BookingItems = [];
 
-        await Task.Delay(TimeSpan.FromMilliseconds(500));
         BookingItems = Map(await SearchCarsAsync()).OrderBy(i => i.TotalPrice).ThenBy(i => i.Name).ThenBy(i => i.LicensePlate).ToList();
 
         IsSearching = false;

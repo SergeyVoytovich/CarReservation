@@ -5,22 +5,20 @@ namespace CarReservation.Web.VIewModels;
 
 public abstract partial class ViewModelBase : ObservableObject
 {
-    
+    [ObservableProperty]
+    private bool isBusy = true;
 }
 
 public abstract partial class InitializedViewModelBase : ViewModelBase
 {
     [ObservableProperty]
-    private bool isInitialing = true;
-
-    [ObservableProperty]
     private bool isInitialized;
 
     public async Task InitializeAsync()
     {
-        IsInitialing = true;
+        IsBusy = true;
         await DoInitializeAsync();
-        IsInitialing = false;
+        IsBusy = false;
         IsInitialized = true;
     }
 

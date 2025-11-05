@@ -61,3 +61,8 @@ h1:focus {
     margin: 1rem 0; 
     font-weight: 600; 
 }
+
+.alert{
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}

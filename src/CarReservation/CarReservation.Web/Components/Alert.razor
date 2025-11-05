@@ -1,0 +1,16 @@
+﻿@inherits MudAlert
+
+@{
+    Class = "alert";
+}
+
+@if(IsVisible)
+{
+    @((builder) => base.BuildRenderTree(builder))
+}
+
+@code
+{
+    [Parameter]
+    public bool IsVisible { get; set; }
+}

@@ -8,15 +8,16 @@
 
 <MudGrid>
     <CascadingValue Value="ViewModel">
-        <LoadingContainer IsLoading=@(!ViewModel.IsInitialized || ViewModel.IsInitialing)>
+        
+        <Loader IsLoading=@(!ViewModel.IsInitialized || ViewModel.IsBusy)>
             <BookingFilter />
-        </LoadingContainer>
-        @if (!ViewModel.IsInitialing)
-        {
-            <LoadingContainer IsLoading=@ViewModel.IsSearching>
-                <BookingList />
-            </LoadingContainer>
-        }
+        </Loader>
+
+        <Loader IsLoading=@ViewModel.IsSearching
+                IsVisible=@(!ViewModel.IsBusy && ViewModel.IsInitialized)>
+            <BookingList />
+        </Loader>
+
     </CascadingValue>
 </MudGrid>
 
@@ -32,9 +33,6 @@
     [SupplyParameterFromQuery(Name = UriCollection.Booking.Parameters.Till)]
     public DateTime? Till { get; set; }
 
-    protected override async Task OnParametersSetAsync()
-    {
-        await ViewModel.InitializeAsync(CityId, From, Till);
-    }
+    protected override Task OnParametersSetAsync() => ViewModel.InitializeAsync(CityId, From, Till);
 
 }

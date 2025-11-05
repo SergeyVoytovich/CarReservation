@@ -9,7 +9,7 @@ using MudBlazor.Extensions;
 
 namespace CarReservation.Web.VIewModels;
 
-public partial class NewBookingVIewModel(IBookingService service, IMapper mapper, NavigationManager navigator) : InitializedViewModelBase
+public partial class NewBookingViewModel(IBookingService service, IMapper mapper, NavigationManager navigator) : InitializedViewModelBase
 {
     protected virtual IBookingService Service { get; } = service;
     protected virtual IMapper Mapper { get; } = mapper;
@@ -42,6 +42,9 @@ public partial class NewBookingVIewModel(IBookingService service, IMapper mapper
     [ObservableProperty]
     private bool isSuccess;
 
+    [ObservableProperty]
+    private bool isBooking;
+
     [RelayCommand(CanExecute = nameof(CanBook))]
     private Task Book() => BookAsync();
 
@@ -60,11 +63,12 @@ public partial class NewBookingVIewModel(IBookingService service, IMapper mapper
 
     public virtual async Task InitializeAsync(Guid? carId, DateTime? from, DateTime? till)
     {
-        IsInitialing = true;
+        IsBusy = true;
 
         await TryLoadAsync(carId, from, till);
 
-        IsInitialing = false;
+        IsBusy = false;
+        IsInitialized = true;
     }
 
     #endregion
@@ -78,7 +82,6 @@ public partial class NewBookingVIewModel(IBookingService service, IMapper mapper
             return;
         }
 
-        await Task.Delay(TimeSpan.FromMilliseconds(500));
         await LoadAscyn(carId.Value, from.Value, till.Value);
     }
 
@@ -127,21 +130,24 @@ public partial class NewBookingVIewModel(IBookingService service, IMapper mapper
 
     protected virtual async Task BookAsync()
     {
-        IsInitialing = true;
+        IsBooking = true;
 
-        await Task.Delay(TimeSpan.FromMilliseconds(500));
+        
         var result = await Service.BookAsync(Mapper.Map<Booking>(this));
 
-        if(result == BookingResult.Succes)
+        if (result == BookingResult.Succes)
         {
+            CanBook = false;
             IsSuccess = true;
+            IsError = false;
         }
         else
         {
+            CanBook = true;
+            IsSuccess = false;
             IsError = true;
         }
 
-        CanBook = false;
-        IsInitialing = false;
+        IsBooking = false;
     }
 }

@@ -15,6 +15,8 @@ internal class BookingService(IRepositoryCollection repositories) : IBookingServ
 
     public async Task<IList<Car>> GetAvailabilityCarsAsync(Guid cityId, DateOnly from, DateOnly till)
     {
+        await Task.Delay(TimeSpan.FromMilliseconds(500));
+
         if (cityId == Guid.Empty)
         {
             throw new ArgumentException("City ID cannot be empty.", nameof(cityId));
@@ -36,6 +38,8 @@ internal class BookingService(IRepositoryCollection repositories) : IBookingServ
 
     public async Task<Car?> GetAvailabilityCarAsync(Guid carId, DateOnly from, DateOnly till)
     {
+        await Task.Delay(TimeSpan.FromMilliseconds(500));
+
         if (carId == Guid.Empty)
         {
             throw new ArgumentException("Car ID cannot be empty.", nameof(carId));
@@ -76,7 +80,9 @@ internal class BookingService(IRepositoryCollection repositories) : IBookingServ
 
     public async Task<BookingResult> BookAsync(Booking booking)
     {
-        if(booking.CarId == Guid.Empty)
+        await Task.Delay(TimeSpan.FromMilliseconds(500));
+
+        if (booking.CarId == Guid.Empty)
         {
             throw new ArgumentNullException("Car is undefined", nameof(Booking.CarId));
         }

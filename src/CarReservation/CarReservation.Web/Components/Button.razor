@@ -1,0 +1,12 @@
+﻿@inherits MudButton
+
+@if(IsVisible)
+{
+    @(builder => base.BuildRenderTree(builder))
+}
+
+@code 
+{
+    [Parameter]
+    public bool IsVisible { get; set; }
+}

@@ -97,6 +97,15 @@ namespace CarReservation.Web.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Booking confirmed.
+        /// </summary>
+        public static string Book_Confirmed {
+            get {
+                return ResourceManager.GetString("Book_Confirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Till.
         /// </summary>
         public static string Book_EndDate {
@@ -115,7 +124,7 @@ namespace CarReservation.Web.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New booking.
+        ///   Looks up a localized string similar to Confirm booking.
         /// </summary>
         public static string Book_New_Title {
             get {
