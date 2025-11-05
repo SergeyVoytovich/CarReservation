@@ -1,36 +1,43 @@
 ﻿@inject IStringLocalizer<Resources> Localizer
-@inject BookingViewModel ViewModel
 
-
-<MudItem xs="4">
-    <MudPaper Elevation="0" Class="mud-width-fiull pa-2 ma-2">
-        <Combobox T="City"
-                  Label="@Localizer[nameof(Resources.Book_City)]"
-                  @bind-Value="@ViewModel.City"
-                  Items="@ViewModel.Cities">
-            <CellTemplate Context="city">
-                <span>@city.Name</span>
-            </CellTemplate>
-        </Combobox>
-    </MudPaper>
+<MudItem xs="3">
+    <Combobox T="City"
+              Label="@Localizer[nameof(Resources.Book_City)]"
+              @bind-Value="@ViewModel.City"
+              Items="@ViewModel.Cities">
+        <CellTemplate Context="city">
+            <span>@city.Name</span>
+        </CellTemplate>
+    </Combobox>
 </MudItem>
 
-<MudItem xs="4">
-    <MudPaper Elevation="0" Class="mud-width-fiull pa-2 ma-2">
-        <MudDatePicker MinDate="@DateTime.Now"
-                       Variant="Variant.Outlined"
-                       Label="@Localizer[nameof(Resources.Book_StartDate)]" />
-    </MudPaper>
+<MudItem xs="3">
+    <MudDatePicker MinDate="@ViewModel.MinStartDate"
+                   Variant="Variant.Outlined"
+                   @bind-Date="@ViewModel.StartDate"
+                   Label="@Localizer[nameof(Resources.Book_StartDate)]" />
 </MudItem>
 
-<MudItem xs="4">
-    <MudPaper Elevation="0" Class="mud-width-fiull pa-2 ma-2">
-        <MudDatePicker MinDate="@DateTime.Now"
-                       Variant="Variant.Outlined"
-                       Label="@Localizer[nameof(Resources.Book_EndDate)]" />
-    </MudPaper>
+<MudItem xs="3">
+    <MudDatePicker MinDate="@ViewModel.MinEndDate"
+                   Variant="Variant.Outlined"
+                   @bind-Date="@ViewModel.EndDate"
+                   Label="@Localizer[nameof(Resources.Book_EndDate)]" />
 </MudItem>
 
-@code {
+<MudItem xs="3">
+    <MudButton Variant="Variant.Filled"
+               Color="Color.Primary"
+               Size="Size.Large"
+               Style="margin: 14px;"
+               OnClick="ViewModel.SearchCommand.ExecuteAsync"
+               Disabled=@(!ViewModel.CanSearch)>
+        @Localizer[nameof(Resources.Book_SearchButton)]
+    </MudButton>
+</MudItem>
 
+@code
+{
+    [Parameter]
+    public BookingViewModel ViewModel { get; set; } = null!;
 }

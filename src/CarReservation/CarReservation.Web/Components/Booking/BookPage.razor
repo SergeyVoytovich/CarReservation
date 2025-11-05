@@ -8,6 +8,9 @@
 
 <MudGrid>
     <LoadingContainer IsLoading=ViewModel.IsInitialing>
-        <SearchItems />
+        <SearchItems ViewModel="@ViewModel" />
+    </LoadingContainer>
+    <LoadingContainer IsLoading=@ViewModel.IsSearching>
+        data
     </LoadingContainer>
 </MudGrid>

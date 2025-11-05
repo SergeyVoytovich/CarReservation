@@ -123,6 +123,9 @@
   <data name="Book_EndDate" xml:space="preserve">
     <value>Till</value>
   </data>
+  <data name="Book_SearchButton" xml:space="preserve">
+    <value>Search</value>
+  </data>
   <data name="Book_StartDate" xml:space="preserve">
     <value>From</value>
   </data>
