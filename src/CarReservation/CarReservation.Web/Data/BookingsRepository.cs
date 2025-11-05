@@ -2,8 +2,10 @@
 
 namespace CarReservation.Web.Data;
 
-internal class BookingsRepository(IEnumerable<Booking> items) : RepositoryBase<Booking>(items), IBookingsRepository
+internal class BookingsRepository(IList<Booking> items) : RepositoryBase<Booking>(items), IBookingsRepository
 {
+    public Task AddAsync(Booking booking) => Task.Run(() => items.Add(booking));
+
     public Task<IList<Booking>> GetAsync(IList<Guid> carsIds, DateOnly from, DateOnly till)
         => Task.FromResult(Get(carsIds, from, till).ToList() as IList<Booking>);
 

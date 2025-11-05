@@ -15,4 +15,11 @@ public interface IBookingsRepository : IRepository<Booking>
     /// <param name="till">Till date</param>
     /// <returns>List of <see href="Booking"></returns>
     Task<IList<Booking>> GetAsync(IList<Guid> carsIds, DateOnly from, DateOnly till);
+
+    /// <summary>
+    /// Add new entry about booking
+    /// </summary>
+    /// <param name="booking">Booking</param>
+    /// <returns>Task</returns>
+    Task AddAsync(Booking booking);
 }
