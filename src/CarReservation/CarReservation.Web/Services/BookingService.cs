@@ -7,15 +7,21 @@ internal class BookingService(IRepositoryCollection repositories) : IBookingServ
 {
     protected virtual IRepositoryCollection Repositories { get; } = repositories;
 
-    public Task<IList<City>> GetCities()
-        => Repositories.Cities().GetAsync();
+    public async Task<IList<City>> GetCities()
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(500));
+        return await Repositories.Cities().GetAsync();
+    }
 
-    public Task<City?> GetCityAsync(Guid id)
-        => Repositories.Cities().GetAsync(id);
+    public async Task<City?> GetCityAsync(Guid id)
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(500));
+        return  await Repositories.Cities().GetAsync(id);
+    }
 
     public async Task<IList<Car>> GetAvailabilityCarsAsync(Guid cityId, DateOnly from, DateOnly till)
     {
-        await Task.Delay(TimeSpan.FromMilliseconds(500));
+        
 
         if (cityId == Guid.Empty)
         {

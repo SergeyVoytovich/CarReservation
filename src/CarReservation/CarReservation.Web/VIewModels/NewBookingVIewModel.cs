@@ -61,15 +61,12 @@ public partial class NewBookingViewModel(IBookingService service, IMapper mapper
         return Task.CompletedTask;
     }
 
-    public virtual async Task InitializeAsync(Guid? carId, DateTime? from, DateTime? till)
-    {
-        IsBusy = true;
-
-        await TryLoadAsync(carId, from, till);
-
-        IsBusy = false;
-        IsInitialized = true;
-    }
+    public virtual Task InitializeAsync(Guid? carId, DateTime? from, DateTime? till)
+        => BusyAsync(async () => 
+        {
+            await TryLoadAsync(carId, from, till);
+            IsInitialized = true;
+        });
 
     #endregion
 
@@ -111,13 +108,10 @@ public partial class NewBookingViewModel(IBookingService service, IMapper mapper
         }
 
         
-        TotalPrice = CalculateTotalPrice();
+        TotalPrice = Car!.PricePerDay * (decimal)(EndDate!.Value.Date - StartDate!.Value.Date).Days;
 
         CanBook = true;
     }
-
-    private decimal CalculateTotalPrice()
-        => Car!.PricePerDay * (decimal)(EndDate!.Value.Date - StartDate!.Value.Date).Days;
 
     protected virtual Task GoBackAsync()
     {
