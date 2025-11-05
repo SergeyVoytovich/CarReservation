@@ -115,5 +115,10 @@ internal class BookingService(IRepositoryCollection repositories) : IBookingServ
         return BookingResult.Succes;
     }
 
+    public async Task<IList<Booking>> GetBookingsAsync()
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(500));
 
+        return await Repositories.Bookings().GetAsync();
+    }
 }
