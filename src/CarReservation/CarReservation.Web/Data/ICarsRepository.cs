@@ -3,7 +3,7 @@
 namespace CarReservation.Web.Data;
 
 /// <summary>
-/// Defines a repository for retrieving car data.
+/// Repository for retrieving car data.
 /// </summary>
 /// <remarks>This interface provides a method to asynchronously retrieve a collection of cars based on a specified city identifier.
 public interface ICarsRepository

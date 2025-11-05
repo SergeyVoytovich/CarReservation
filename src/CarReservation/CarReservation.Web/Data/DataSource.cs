@@ -7,4 +7,5 @@ internal class DataSource
 {
     public IList<City> Cities { get; init; } = [];
     public IList<Car> Cars { get; init; } = [];
+    public IList<Booking> Bookings { get; init; } = [];
 }

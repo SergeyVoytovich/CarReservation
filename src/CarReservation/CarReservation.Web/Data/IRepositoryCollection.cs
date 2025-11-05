@@ -16,4 +16,10 @@ public interface IRepositoryCollection
     /// </summary>
     /// <returns><see cref="ICarsRepository"/></returns>
     ICarsRepository Cars();
+
+    /// <summary>
+    /// Get bookings repository from collection
+    /// </summary>
+    /// <returns<see cref="IBookingsRepository"/>></returns>
+    IBookingsRepository Bookings();
 }
