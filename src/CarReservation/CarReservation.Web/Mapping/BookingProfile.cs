@@ -14,6 +14,12 @@ public class BookingProfile : Profile
             .ForMember(dst => dst.Name, opt => opt.MapFrom(src => $"{src.Make} {src.Model}" ))
             ;
 
-        
+        CreateMap<NewBookingVIewModel, Booking>()
+            .ForMember(dst => dst.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
+            .ForMember(dst => dst.CarId, opt => opt.MapFrom(src => src.Car!.Id))
+            .ForMember(dst => dst.StartDate, opt => opt.MapFrom(src => DateOnly.FromDateTime(src.StartDate!.Value)))
+            .ForMember(dst => dst.EndDate, opt => opt.MapFrom(src => DateOnly.FromDateTime(src.EndDate!.Value)))
+            .ForMember(dst => dst.TotalPrice, opt => opt.MapFrom(src => src.TotalPrice))
+            ;
     }
 }
