@@ -21,7 +21,7 @@
         {
             <MudItem xs=12>
                 <MudContainer Class="d-flex justify-center successfull">
-                    @Localizer[nameof(Resources.Book_UnableToComplete)]
+                    @Localizer[nameof(Resources.Booking_Successful)]
                 </MudContainer>
             </MudItem>
         }
@@ -76,8 +76,7 @@
         <MudItem xs=6>
             <MudButton Variant="Variant.Filled"
                        Color="Color.Default"
-                       Size="Size.Large"
-                       Style="margin: 14px;"
+                       Size="Size.Medium"
                        OnClick="@ViewModel.BackCommand.ExecuteAsync">
                 @Localizer[nameof(Resources.Book_Back)]
             </MudButton>
@@ -88,8 +87,7 @@
             {
                 <MudButton Variant="Variant.Filled"
                            Color="Color.Primary"
-                           Size="Size.Large"
-                           Style="margin: 14px;"
+                           Size="Size.Medium"
                            OnClick="@ViewModel.BookCommand.ExecuteAsync"
                            Disabled=@(!ViewModel.CanBook)>
                     @Localizer[nameof(Resources.Book_BookButton)]

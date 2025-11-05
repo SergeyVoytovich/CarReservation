@@ -43,7 +43,7 @@ public partial class NewBookingVIewModel(IBookingService service, IMapper mapper
     private bool isSuccess;
 
     [RelayCommand(CanExecute = nameof(CanBook))]
-    private Task Book() => GoBackAsync();
+    private Task Book() => BookAsync();
 
     [RelayCommand]
     private Task Back() => GoBackAsync();
@@ -124,4 +124,24 @@ public partial class NewBookingVIewModel(IBookingService service, IMapper mapper
         return Task.CompletedTask;
     }
 
+
+    protected virtual async Task BookAsync()
+    {
+        IsInitialing = true;
+
+        await Task.Delay(TimeSpan.FromMilliseconds(500));
+        var result = await Service.BookAsync(Mapper.Map<Booking>(this));
+
+        if(result == BookingResult.Succes)
+        {
+            IsSuccess = true;
+        }
+        else
+        {
+            IsError = true;
+        }
+
+        CanBook = false;
+        IsInitialing = false;
+    }
 }
