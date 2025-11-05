@@ -5,7 +5,7 @@ namespace CarReservation.Web.Data;
 /// <summary>
 /// Repository for work with bookings.
 /// </summary>
-public interface IBookingsRepository
+public interface IBookingsRepository : IRepository<Booking>
 {
     /// <summary>
     /// Get booking for a scespecific cars in specific date interval

@@ -61,11 +61,29 @@ namespace CarReservation.Web.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back to search.
+        /// </summary>
+        public static string Book_Back {
+            get {
+                return ResourceManager.GetString("Book_Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Book.
         /// </summary>
         public static string Book_BookButton {
             get {
                 return ResourceManager.GetString("Book_BookButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Car.
+        /// </summary>
+        public static string Book_Car {
+            get {
+                return ResourceManager.GetString("Book_Car", resourceCulture);
             }
         }
         
@@ -88,11 +106,38 @@ namespace CarReservation.Web.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to License plate.
+        /// </summary>
+        public static string Book_LicencePlate {
+            get {
+                return ResourceManager.GetString("Book_LicencePlate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New booking.
         /// </summary>
         public static string Book_New_Title {
             get {
                 return ResourceManager.GetString("Book_New_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total price.
+        /// </summary>
+        public static string Book_Price {
+            get {
+                return ResourceManager.GetString("Book_Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price per day.
+        /// </summary>
+        public static string Book_PricePerDay {
+            get {
+                return ResourceManager.GetString("Book_PricePerDay", resourceCulture);
             }
         }
         
@@ -120,6 +165,24 @@ namespace CarReservation.Web.Localization {
         public static string Book_Title {
             get {
                 return ResourceManager.GetString("Book_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to complete booking.
+        /// </summary>
+        public static string Book_UnableToComplete {
+            get {
+                return ResourceManager.GetString("Book_UnableToComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Booking completed successfully.
+        /// </summary>
+        public static string Booking_Successful {
+            get {
+                return ResourceManager.GetString("Booking_Successful", resourceCulture);
             }
         }
         

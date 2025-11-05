@@ -1,31 +1,100 @@
 ﻿@attribute [Route(UriCollection.Booking.New)]
 
 @inject IStringLocalizer<Resources> Localizer
+@inject NewBookingVIewModel ViewModel
 
-<LoadingContainer>
+<Title Value="@Localizer[nameof(Resources.Book_New_Title)]" />
+
+<LoadingContainer IsLoading=@ViewModel.IsInitialing>
     <MudGrid>
-        <MudItem xs=6>
 
+        @if (ViewModel.IsError)
+        {
+            <MudItem xs=12>
+                <MudContainer Class="d-flex justify-center error">
+                    @Localizer[nameof(Resources.Book_UnableToComplete)]
+                </MudContainer>
+            </MudItem>
+        }
+
+        @if (ViewModel.IsSuccess)
+        {
+            <MudItem xs=12>
+                <MudContainer Class="d-flex justify-center successfull">
+                    @Localizer[nameof(Resources.Book_UnableToComplete)]
+                </MudContainer>
+            </MudItem>
+        }
+
+        @if (ViewModel.CanBook)
+        {
+            <MudItem xs=4>
+                <MudTextField Value="ViewModel.City?.Name"
+                              ReadOnly=true
+                              Label="@Localizer[nameof(Resources.Book_City)]" />
+            </MudItem>
+
+            <MudItem xs=4>
+                <MudTextField Value="@($"{ViewModel.Car?.Make} {ViewModel.Car?.Model}")"
+                              ReadOnly=true
+                              Label="@Localizer[nameof(Resources.Book_Car)]" />
+            </MudItem>
+
+            <MudItem xs=4>
+                <MudTextField Value="ViewModel.Car?.LicensePlate"
+                              ReadOnly=true
+                              Label="@Localizer[nameof(Resources.Book_LicencePlate)]" />
+            </MudItem>
+
+            <MudItem xs="6">
+                <MudTextField Value="@ViewModel.StartDate"
+                              ReadOnly=true
+                              Label="@Localizer[nameof(Resources.Book_StartDate)]" />
+            </MudItem>
+
+            <MudItem xs="6">
+                <MudTextField Value="@ViewModel.EndDate"
+                              ReadOnly=true
+                              Label="@Localizer[nameof(Resources.Book_EndDate)]" />
+            </MudItem>
+
+            <MudItem xs="6">
+                <MudTextField Value="@ViewModel.Car?.PricePerDay"
+                              ReadOnly=true
+                              Format="C"
+                              Label="@Localizer[nameof(Resources.Book_PricePerDay)]" />
+            </MudItem>
+
+            <MudItem xs="6">
+                <MudTextField Value="@ViewModel.TotalPrice"
+                              ReadOnly=true
+                              Format="C"
+                              Label="@Localizer[nameof(Resources.Book_Price)]" />
+            </MudItem>
+        }
+
+        <MudItem xs=6>
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Default"
+                       Size="Size.Large"
+                       Style="margin: 14px;"
+                       OnClick="@ViewModel.BackCommand.ExecuteAsync">
+                @Localizer[nameof(Resources.Book_Back)]
+            </MudButton>
         </MudItem>
 
         <MudItem xs=6>
-
-        </MudItem>
-
-        <MudItem xs=6>
-            
-        </MudItem>
-
-        <MudItem xs=6>
-
-        </MudItem>
-
-        <MudItem xs=6>
-
-        </MudItem>
-
-        <MudItem xs=6>
-
+            @if (!ViewModel.IsError)
+            {
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           Size="Size.Large"
+                           Style="margin: 14px;"
+                           OnClick="@ViewModel.BookCommand.ExecuteAsync"
+                           Disabled=@(!ViewModel.CanBook)>
+                    @Localizer[nameof(Resources.Book_BookButton)]
+                </MudButton>
+            }
         </MudItem>
 
     </MudGrid>
@@ -41,4 +110,9 @@
 
     [SupplyParameterFromQuery(Name = UriCollection.Booking.Parameters.Till)]
     public DateTime? Till { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await ViewModel.InitializeAsync(CarId, From, Till);
+    }
 }

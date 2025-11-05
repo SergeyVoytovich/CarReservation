@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Booking_Successful" xml:space="preserve">
+    <value>Booking completed successfully</value>
+  </data>
+  <data name="Book_Back" xml:space="preserve">
+    <value>Back to search</value>
+  </data>
   <data name="Book_BookButton" xml:space="preserve">
     <value>Book</value>
+  </data>
+  <data name="Book_Car" xml:space="preserve">
+    <value>Car</value>
   </data>
   <data name="Book_City" xml:space="preserve">
     <value>City</value>
@@ -126,8 +135,17 @@
   <data name="Book_EndDate" xml:space="preserve">
     <value>Till</value>
   </data>
+  <data name="Book_LicencePlate" xml:space="preserve">
+    <value>License plate</value>
+  </data>
   <data name="Book_New_Title" xml:space="preserve">
     <value>New booking</value>
+  </data>
+  <data name="Book_Price" xml:space="preserve">
+    <value>Total price</value>
+  </data>
+  <data name="Book_PricePerDay" xml:space="preserve">
+    <value>Price per day</value>
   </data>
   <data name="Book_SearchButton" xml:space="preserve">
     <value>Search</value>
@@ -137,6 +155,9 @@
   </data>
   <data name="Book_Title" xml:space="preserve">
     <value>Book a car</value>
+  </data>
+  <data name="Book_UnableToComplete" xml:space="preserve">
+    <value>Unable to complete booking</value>
   </data>
   <data name="History_Title" xml:space="preserve">
     <value>My bookings</value>

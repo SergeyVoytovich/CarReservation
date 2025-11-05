@@ -130,7 +130,7 @@ public partial class BookingSearchViewModel(IBookingService service, IMapper map
     }
 
     private Task<IList<Car>> SearchCarsAsync()
-        => Service.SearchCarsAsync(City!.Id, DateOnly.FromDateTime(StartDate!.Value), DateOnly.FromDateTime(EndDate!.Value));
+        => Service.GetAvailabilityCarsAsync(City!.Id, DateOnly.FromDateTime(StartDate!.Value), DateOnly.FromDateTime(EndDate!.Value));
 
     private IList<BookingItem> Map(IList<Car> cars)
         => cars.Select(c => Mapper.Map<Car, BookingItem>(c, opt => opt.AfterMap((src, dst) => CalculateTotalPrice(src, dst)))).ToList();

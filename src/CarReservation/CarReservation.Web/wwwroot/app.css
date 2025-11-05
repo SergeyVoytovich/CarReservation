@@ -41,3 +41,13 @@ h1:focus {
 .mud-container.body-container {
     margin-top: 1rem;
 }
+
+.mud-container.error {
+    border: 2px solid #8B0000; 
+    background-color: #F8D7DA;
+    color: #721C24; 
+    border-radius: 8px; 
+    padding: 1rem; 
+    margin: 1rem 0; 
+    font-weight: 600;
+}

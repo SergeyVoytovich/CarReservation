@@ -6,9 +6,12 @@
                  SortMode="SortMode.Multiple"
                  Groupable=false>
         <Columns>
-            <PropertyColumn Property="p => p.Name" />
-            <PropertyColumn Property="p => p.LicensePlate" />
-            <PropertyColumn Property="p => p.TotalPrice" />
+            <PropertyColumn Property="p => p.Name"
+                            Title="@Localizer[nameof(Resources.Book_Car)]" />
+            <PropertyColumn Property="p => p.LicensePlate"
+                            Title="@Localizer[nameof(Resources.Book_LicencePlate)]" />
+            <PropertyColumn Property="p => p.TotalPrice"
+                            Title="@Localizer[nameof(Resources.Book_Price)]" />
             <TemplateColumn Class="Bookings">
                 <CellTemplate>
                     <MudButton Size="Size.Small"

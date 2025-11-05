@@ -16,6 +16,12 @@ public static class UriCollection
         public const string Root = $"{UriCollection.Root}booking";
         public const string New = $"{Booking.Root}/new";
 
+        public static string ToRoot(DateTime from, DateTime till)
+            => Root
+                .AddQueryString(Parameters.From, from)
+                .AddQueryString(Parameters.Till, till)
+            ;
+
         public static string ToRoot(Guid cityId, DateTime from, DateTime till)
             => Root
                 .AddQueryString(Parameters.CityId, cityId)

@@ -1,19 +1,28 @@
 ﻿using AutoMapper;
 using CarReservation.Web.Domain;
+using CarReservation.Web.Navigation;
 using CarReservation.Web.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.AspNetCore.Components;
+using MudBlazor.Extensions;
 
 namespace CarReservation.Web.VIewModels;
 
-public class NewBookingVIewModel(IBookingService service, IMapper mapper, NavigationManager navigator) : InitializedViewModelBase
+public partial class NewBookingVIewModel(IBookingService service, IMapper mapper, NavigationManager navigator) : InitializedViewModelBase
 {
+    protected virtual IBookingService Service { get; } = service;
+    protected virtual IMapper Mapper { get; } = mapper;
+    protected virtual NavigationManager Navigator { get; } = navigator;
+
 
     #region MVVM
 
     [ObservableProperty]
     private City? city;
+
+    [ObservableProperty]
+    private Car? car;
 
     [ObservableProperty]
     private DateTime? startDate;
@@ -22,20 +31,22 @@ public class NewBookingVIewModel(IBookingService service, IMapper mapper, Naviga
     private DateTime? endDate;
 
     [ObservableProperty]
-    private IList<City> cities = [];
-
-    [ObservableProperty]
     private decimal totalPrice;
 
     [ObservableProperty]
-    private IList<BookingItem> bookingItems = [];
+    private bool canBook;
 
     [ObservableProperty]
-    private bool canSearch;
+    private bool isError;
 
+    [ObservableProperty]
+    private bool isSuccess;
+
+    [RelayCommand(CanExecute = nameof(CanBook))]
+    private Task Book() => GoBackAsync();
 
     [RelayCommand]
-    private void Book(BookingItem item) { };
+    private Task Back() => GoBackAsync();
 
     #endregion
 
@@ -44,8 +55,73 @@ public class NewBookingVIewModel(IBookingService service, IMapper mapper, Naviga
 
     protected override Task DoInitializeAsync()
     {
-        throw new NotImplementedException();
+        return Task.CompletedTask;
+    }
+
+    public virtual async Task InitializeAsync(Guid? carId, DateTime? from, DateTime? till)
+    {
+        IsInitialing = true;
+
+        await TryLoadAsync(carId, from, till);
+
+        IsInitialing = false;
     }
 
     #endregion
+
+
+    protected virtual async Task TryLoadAsync(Guid? carId, DateTime? from, DateTime? till)
+    {
+        if (!carId.HasValue || !from.HasValue || !till.HasValue)
+        {
+            IsError = true;
+            return;
+        }
+
+        await Task.Delay(TimeSpan.FromMilliseconds(500));
+        await LoadAscyn(carId.Value, from.Value, till.Value);
+    }
+
+    protected virtual async Task LoadAscyn(Guid carId, DateTime from, DateTime till)
+    {
+        if(carId == Guid.Empty || from.Date < DateTime.Now.Date || till.Date <= from.Date)
+        {
+            IsError = true;
+            return;
+        }
+
+        StartDate = from;
+        EndDate = till;
+
+        Car = await Service.GetAvailabilityCarAsync(carId, DateOnly.FromDateTime(from), DateOnly.FromDateTime(till));
+        if (Car is null)
+        {
+            IsError = true;
+            return;
+        }
+
+        City = await Service.GetCityAsync(Car!.CityId);
+        if (City is null)
+        {
+            IsError = true;
+            return;
+        }
+
+        
+        TotalPrice = CalculateTotalPrice();
+
+        CanBook = true;
+    }
+
+    private decimal CalculateTotalPrice()
+        => Car!.PricePerDay * (decimal)(EndDate!.Value.Date - StartDate!.Value.Date).Days;
+
+    protected virtual Task GoBackAsync()
+    {
+        var uri = City is null ? UriCollection.Booking.ToRoot(StartDate!.Value, EndDate!.Value)
+                               : UriCollection.Booking.ToRoot(City.Id, StartDate!.Value, EndDate!.Value);
+        Navigator.NavigateTo(uri);
+        return Task.CompletedTask;
+    }
+
 }
