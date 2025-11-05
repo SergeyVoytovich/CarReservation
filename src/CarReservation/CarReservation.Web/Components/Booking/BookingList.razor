@@ -1,0 +1,18 @@
+﻿<MudItem xs="12">
+    <MudDataGrid Items="ViewModel.BookingItems"
+                 Filterable=true
+                 SortMode="SortMode.Multiple"
+                 Groupable=false>
+        <Columns>
+            <PropertyColumn Property="p => p.Name" />
+            <PropertyColumn Property="p => p.LicensePlate" />
+            <PropertyColumn Property="p => p.TotalPrice" />
+        </Columns>
+    </MudDataGrid>
+</MudItem>
+
+@code
+{
+    [CascadingParameter]
+    public BookingViewModel ViewModel { get; set; } = null!;
+}

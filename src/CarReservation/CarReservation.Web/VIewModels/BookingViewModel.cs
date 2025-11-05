@@ -70,9 +70,6 @@ public partial class BookingViewModel(IBookingService service, IMapper mapper) :
         CanSearch = GetCanSearch();
     }
 
-    partial void OnEndDateChanged(DateTime? value) => _ = SearchAsync();
-
-
     public bool GetCanSearch()
         => City is not null && StartDate is not null && EndDate is not null && StartDate.Value.Date < EndDate.Value.Date && !IsSearching;
 
@@ -88,17 +85,10 @@ public partial class BookingViewModel(IBookingService service, IMapper mapper) :
         CanSearch = false;
 
         await Task.Delay(TimeSpan.FromMilliseconds(500));
-        BookingItems = Map(await SearchCarsAsync());
+        BookingItems = Map(await SearchCarsAsync()).OrderBy(i => i.TotalPrice).ThenBy(i => i.Name).ThenBy(i => i.LicensePlate).ToList();
         
         IsSearching = false;
         CanSearch = GetCanSearch();
-
-        SynchronizationContext.Current?.Post(_ =>
-        {
-            IsSearching = false;
-        }, null);
-
-       
     }
 
     private Task<IList<Car>> SearchCarsAsync()
@@ -109,7 +99,7 @@ public partial class BookingViewModel(IBookingService service, IMapper mapper) :
 
     private void CalculateTotalPrice(Car source, BookingItemViewModel destination )
     {
-        destination.TotalPrice = source.PricePerDay * (decimal)(EndDate!.Value.Date - StartDate!.Value.Date).TotalDays;
+        destination.TotalPrice = source.PricePerDay * (decimal)(EndDate!.Value.Date - StartDate!.Value.Date).Days;
     }
 
 }

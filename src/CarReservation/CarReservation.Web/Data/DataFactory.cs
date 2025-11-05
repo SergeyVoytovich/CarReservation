@@ -6,6 +6,8 @@ internal class DataFactory
 {
     private const int MinCarsPerCity = 5;
     private const int MaxCarsPerCity = 9;
+    private const int MinPrice = 50;
+    private const int MaxPrice = 150;
 
     public DataSource Init() => Init(Cities().ToList());
 
@@ -28,7 +30,6 @@ internal class DataFactory
 
     private IEnumerable<(string Make, string Model)> CarTypes()
     {
-        yield return new("", "");
         yield return new("Volkswagen", "Golf");
         yield return new("BMW", "3 Series");
         yield return new("Audi", "A4");
@@ -56,10 +57,11 @@ internal class DataFactory
                 yield return new Car
                 {
                     Id = Guid.NewGuid(),
-                    CityId = cities.ElementAt(random.Next(cities.Count())).Id,
+                    CityId = city.Id,
                     Make = carType.Make,
                     Model = carType.Model,
-                    LicensePlate = $"{city.Name[..3].ToUpperInvariant()}-{random.Next(100, 9999)}"
+                    LicensePlate = $"{city.Name[..1].ToUpperInvariant()}-{random.Next(1000, 9999)}",
+                    PricePerDay = random.Next(MinPrice, MaxPrice)
                 };
             }
         }

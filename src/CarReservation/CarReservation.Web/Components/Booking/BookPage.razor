@@ -7,13 +7,15 @@
 <Title Value="@Localizer[nameof(Resources.Book_Title)]" />
 
 <MudGrid>
-    <LoadingContainer IsLoading=@(!ViewModel.IsInitialized || ViewModel.IsInitialing)>
-        <SearchItems ViewModel="@ViewModel" />
-    </LoadingContainer>
-    @if (ViewModel.IsInitialized)
-    {
-        <LoadingContainer IsLoading=@ViewModel.IsSearching>
-            data
+    <CascadingValue Value="ViewModel">
+        <LoadingContainer IsLoading=@(!ViewModel.IsInitialized || ViewModel.IsInitialing)>
+            <BookingFilter />
         </LoadingContainer>
-    }
+        @if (ViewModel.IsInitialized)
+        {
+            <LoadingContainer IsLoading=@ViewModel.IsSearching>
+                <BookingList />
+            </LoadingContainer>
+        }
+    </CascadingValue>
 </MudGrid>
