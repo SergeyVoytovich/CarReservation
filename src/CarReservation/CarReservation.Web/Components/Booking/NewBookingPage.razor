@@ -1,0 +1,44 @@
+﻿@attribute [Route(UriCollection.Booking.New)]
+
+@inject IStringLocalizer<Resources> Localizer
+
+<LoadingContainer>
+    <MudGrid>
+        <MudItem xs=6>
+
+        </MudItem>
+
+        <MudItem xs=6>
+
+        </MudItem>
+
+        <MudItem xs=6>
+            
+        </MudItem>
+
+        <MudItem xs=6>
+
+        </MudItem>
+
+        <MudItem xs=6>
+
+        </MudItem>
+
+        <MudItem xs=6>
+
+        </MudItem>
+
+    </MudGrid>
+</LoadingContainer>
+
+@code
+{
+    [SupplyParameterFromQuery(Name = UriCollection.Booking.Parameters.CarId)]
+    public Guid? CarId { get; set; }
+
+    [SupplyParameterFromQuery(Name = UriCollection.Booking.Parameters.From)]
+    public DateTime? From { get; set; }
+
+    [SupplyParameterFromQuery(Name = UriCollection.Booking.Parameters.Till)]
+    public DateTime? Till { get; set; }
+}

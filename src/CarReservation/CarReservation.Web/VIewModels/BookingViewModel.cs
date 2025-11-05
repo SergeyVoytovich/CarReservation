@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace CarReservation.Web.VIewModels;
 
-public partial class BookingViewModel(IBookingService service, IMapper mapper, NavigationManager navigator) : InitializedViewModelBase
+public partial class BookingSearchViewModel(IBookingService service, IMapper mapper, NavigationManager navigator) : InitializedViewModelBase
 {
 
     protected virtual IBookingService Service { get; } = service;
@@ -40,7 +40,7 @@ public partial class BookingViewModel(IBookingService service, IMapper mapper, N
     private bool isSearching;
 
     [ObservableProperty]
-    private IList<BookingItemViewModel> bookingItems = [];
+    private IList<BookingItem> bookingItems = [];
 
     [ObservableProperty]
     private bool canSearch;
@@ -49,7 +49,7 @@ public partial class BookingViewModel(IBookingService service, IMapper mapper, N
     private Task ToSearch() => NavigateToSearchAsync();
 
     [RelayCommand]
-    private Task Book(BookingItemViewModel item) => BookInternalAsync(item);
+    private void Book(BookingItem item) => BookInternal(item);
 
     #endregion
 
@@ -132,22 +132,17 @@ public partial class BookingViewModel(IBookingService service, IMapper mapper, N
     private Task<IList<Car>> SearchCarsAsync()
         => Service.SearchCarsAsync(City!.Id, DateOnly.FromDateTime(StartDate!.Value), DateOnly.FromDateTime(EndDate!.Value));
 
-    private IList<BookingItemViewModel> Map(IList<Car> cars)
-        => cars.Select(c => Mapper.Map<Car, BookingItemViewModel>(c, opt => opt.AfterMap((src, dst) => CalculateTotalPrice(src, dst)))).ToList();
+    private IList<BookingItem> Map(IList<Car> cars)
+        => cars.Select(c => Mapper.Map<Car, BookingItem>(c, opt => opt.AfterMap((src, dst) => CalculateTotalPrice(src, dst)))).ToList();
 
-    private void CalculateTotalPrice(Car source, BookingItemViewModel destination)
+    private void CalculateTotalPrice(Car source, BookingItem destination)
     {
         destination.TotalPrice = source.PricePerDay * (decimal)(EndDate!.Value.Date - StartDate!.Value.Date).Days;
     }
 
-    protected virtual async Task BookInternalAsync(BookingItemViewModel item)
+    protected virtual void BookInternal(BookingItem item)
     {
-        await SearchAsync();
-
-        SynchronizationContext.Current?.Post(_ =>
-        {
-            IsSearching = false;
-        }, null);
+        Navigator.NavigateTo(UriCollection.Booking.ToNew(item.CarId, StartDate!.Value, EndDate!.Value));
     }
 
     protected virtual Task NavigateToSearchAsync()
@@ -157,7 +152,7 @@ public partial class BookingViewModel(IBookingService service, IMapper mapper, N
             return Task.CompletedTask;
         }
 
-        var uri = UriCollection.Book.GetRoot(City!.Id, StartDate!.Value, EndDate!.Value);
+        var uri = UriCollection.Booking.ToRoot(City!.Id, StartDate!.Value, EndDate!.Value);
 
         if(Navigator.Uri.EndsWith(uri, StringComparison.OrdinalIgnoreCase))
         {

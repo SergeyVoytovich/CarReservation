@@ -88,6 +88,15 @@ namespace CarReservation.Web.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New booking.
+        /// </summary>
+        public static string Book_New_Title {
+            get {
+                return ResourceManager.GetString("Book_New_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Book_SearchButton {

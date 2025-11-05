@@ -126,6 +126,9 @@
   <data name="Book_EndDate" xml:space="preserve">
     <value>Till</value>
   </data>
+  <data name="Book_New_Title" xml:space="preserve">
+    <value>New booking</value>
+  </data>
   <data name="Book_SearchButton" xml:space="preserve">
     <value>Search</value>
   </data>

@@ -1,4 +1,6 @@
-﻿namespace CarReservation.Web.Navigation;
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace CarReservation.Web.Navigation;
 
 public static class UriCollection
 {
@@ -9,13 +11,21 @@ public static class UriCollection
     public const string Error = $"{Root}error";
 
 
-    public static class Book
+    public static class Booking
     {
-        public const string Root = $"{UriCollection.Root}book";
+        public const string Root = $"{UriCollection.Root}booking";
+        public const string New = $"{Booking.Root}/new";
 
-        public static string GetRoot(Guid cityId, DateTime from, DateTime till)
+        public static string ToRoot(Guid cityId, DateTime from, DateTime till)
             => Root
                 .AddQueryString(Parameters.CityId, cityId)
+                .AddQueryString(Parameters.From, from)
+                .AddQueryString(Parameters.Till, till)
+            ;
+
+        public static string ToNew(Guid carId, DateTime from, DateTime till)
+            => New
+                .AddQueryString(Parameters.CarId, carId)
                 .AddQueryString(Parameters.From, from)
                 .AddQueryString(Parameters.Till, till)
             ;
@@ -23,6 +33,7 @@ public static class UriCollection
         public static class Parameters
         {
             public const string CityId = "city";
+            public const string CarId = "car";
             public const string From = "from";
             public const string Till = "till";
 

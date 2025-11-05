@@ -14,7 +14,7 @@
                     <MudButton Size="Size.Small"
                                Variant="Variant.Filled"
                                Color="Color.Primary"
-                               OnClick="@(async e => await ViewModel.BookCommand.ExecuteAsync(context.Item))">
+                               OnClick="@(e => ViewModel.BookCommand.Execute(context.Item))">
                         @Localizer[nameof(Resources.Book_BookButton)]
                     </MudButton>
                 </CellTemplate>
@@ -26,5 +26,5 @@
 @code
 {
     [CascadingParameter]
-    public BookingViewModel ViewModel { get; set; } = null!;
+    public BookingSearchViewModel ViewModel { get; set; } = null!;
 }

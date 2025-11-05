@@ -4,8 +4,14 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CarReservation.Web.VIewModels;
 
-public partial class BookingItemViewModel : ViewModelBase
+public partial class BookingItem
 {
+    /// <summary>
+    /// Car identifier
+    /// </summary>
+    public Guid CarId { get; set; }
+
+
     /// <summary>
     /// Name of the vehicle.
     /// </summary>

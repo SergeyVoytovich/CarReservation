@@ -1,6 +1,6 @@
-﻿@inherits ViewBase<BookingViewModel>
+﻿@inherits ViewBase<BookingSearchViewModel>
 
-@attribute [Route(UriCollection.Book.Root)]
+@attribute [Route(UriCollection.Booking.Root)]
 
 @inject IStringLocalizer<Resources> Localizer
 
@@ -23,13 +23,13 @@
 
 @code
 {
-    [SupplyParameterFromQuery(Name = UriCollection.Book.Parameters.CityId)]
+    [SupplyParameterFromQuery(Name = UriCollection.Booking.Parameters.CityId)]
     public Guid? CityId { get; set; }
 
-    [SupplyParameterFromQuery(Name = UriCollection.Book.Parameters.From)]
+    [SupplyParameterFromQuery(Name = UriCollection.Booking.Parameters.From)]
     public DateTime? From { get; set; } 
 
-    [SupplyParameterFromQuery(Name = UriCollection.Book.Parameters.Till)]
+    [SupplyParameterFromQuery(Name = UriCollection.Booking.Parameters.Till)]
     public DateTime? Till { get; set; }
 
     protected override async Task OnParametersSetAsync()
