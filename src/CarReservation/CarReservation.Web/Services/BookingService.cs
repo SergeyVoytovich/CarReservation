@@ -21,7 +21,7 @@ internal class BookingService(IRepositoryCollection repositories) : IBookingServ
 
     public async Task<IList<Car>> GetAvailabilityCarsAsync(Guid cityId, DateOnly from, DateOnly till)
     {
-        
+        await Task.Delay(TimeSpan.FromMilliseconds(500));
 
         if (cityId == Guid.Empty)
         {
