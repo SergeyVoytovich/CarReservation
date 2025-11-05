@@ -16,10 +16,4 @@ public interface IRepositoryCollection
     /// </summary>
     /// <returns><see cref="ICarsRepository"/></returns>
     ICarsRepository Cars();
-
-    /// <summary>
-    /// Get car types repository from collection
-    /// </summary>
-    /// <returns><see cref="ICarTypesRepository"/></returns>
-    ICarTypesRepository CarTypes();
 }

@@ -1,4 +1,5 @@
-﻿using CarReservation.Web.Domain;
+﻿using AutoMapper;
+using CarReservation.Web.Domain;
 using CarReservation.Web.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -6,10 +7,11 @@ using Microsoft.AspNetCore.Components;
 
 namespace CarReservation.Web.VIewModels;
 
-public partial class BookingViewModel(IBookingService service) : ViewModelBase
+public partial class BookingViewModel(IBookingService service, IMapper mapper) : InitializedViewModelBase
 {
 
     protected virtual IBookingService Service { get; } = service;
+    protected virtual IMapper Mapper { get; } = mapper;
 
     [ObservableProperty]
     private City? city;
@@ -34,6 +36,9 @@ public partial class BookingViewModel(IBookingService service) : ViewModelBase
 
     [ObservableProperty]
     private bool canSearch;
+
+    [ObservableProperty]
+    private IList<BookingItemViewModel> bookingItems = [];
 
     protected override async Task DoInitializeAsync()
     {
@@ -83,6 +88,7 @@ public partial class BookingViewModel(IBookingService service) : ViewModelBase
         CanSearch = false;
 
         await Task.Delay(TimeSpan.FromMilliseconds(500));
+        BookingItems = Map(await SearchCarsAsync());
         
         IsSearching = false;
         CanSearch = GetCanSearch();
@@ -93,6 +99,17 @@ public partial class BookingViewModel(IBookingService service) : ViewModelBase
         }, null);
 
        
+    }
+
+    private Task<IList<Car>> SearchCarsAsync()
+        => Service.SearchCarsAsync(City!.Id, DateOnly.FromDateTime(StartDate!.Value), DateOnly.FromDateTime(EndDate!.Value));
+
+    private IList<BookingItemViewModel> Map(IList<Car> cars)
+        => cars.Select(c => Mapper.Map<Car, BookingItemViewModel>(c, opt => opt.AfterMap((src, dst) => CalculateTotalPrice(src, dst)))).ToList();
+
+    private void CalculateTotalPrice(Car source, BookingItemViewModel destination )
+    {
+        destination.TotalPrice = source.PricePerDay * (decimal)(EndDate!.Value.Date - StartDate!.Value.Date).TotalDays;
     }
 
 }

@@ -106,7 +106,7 @@ namespace CarReservation.Web.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My reservations.
+        ///   Looks up a localized string similar to My bookings.
         /// </summary>
         public static string History_Title {
             get {

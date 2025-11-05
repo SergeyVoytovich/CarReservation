@@ -8,7 +8,5 @@ internal class RepositoryCollection(DataSource dataSource) : IRepositoryCollecti
         => new CitiesRepository(DataSource.Cities);
     public ICarsRepository Cars()
         => new CarsRepository(DataSource.Cars);
-    public ICarTypesRepository CarTypes()
-        => new CarTypesRepository(DataSource.CarTypes);
 }
 

@@ -6,12 +6,6 @@
 public record Booking : DomainBase
 {
     /// <summary>
-    /// Reference to the city
-    /// </summary>
-    /// <remarks><see cref="City"/></remarks>
-    public Guid CityId { get; init; }
-
-    /// <summary>
     /// Reference to the car
     /// </summary>
     /// <remarks><see cref="Car"/></remarks>

@@ -12,10 +12,14 @@ public record Car : DomainBase
     public Guid CityId { get; init; }
 
     /// <summary>
-    /// Reference to the type
+    /// Make of the vehicle.
     /// </summary>
-    /// <remarks><see cref="CarType"/></remarks>
-    public Guid CarTypeId { get; init; }
+    public string Make { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Model of the vehicle.
+    /// </summary>
+    public string Model { get; init; } = string.Empty;
 
     /// <summary>
     /// License plate of the car

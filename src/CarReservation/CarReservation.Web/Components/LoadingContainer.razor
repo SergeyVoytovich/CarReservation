@@ -1,11 +1,10 @@
 ﻿@if (IsLoading)
 {
-    <MudItem xs="12">
-        <MudPaper Elevation="0" >
-            <MudProgressCircular Indeterminate="true"
-                                 Color="Color.Primary"
-                                 Size="Size.Medium" />
-        </MudPaper>
+    <MudItem xs="12"
+             Class="d-flex justify-center">
+        <MudProgressCircular Indeterminate="true"
+                             Color="Color.Primary"
+                             Size="Size.Medium" />
     </MudItem>
 }
 else

@@ -9,4 +9,7 @@ internal class BookingService(IRepositoryCollection repositories) : IBookingServ
 
     public Task<IList<City>> GetCities()
         => Repositories.Cities().GetAsync();
+
+    public Task<IList<Car>> SearchCarsAsync(Guid cityId, DateOnly from, DateOnly till)
+        => Repositories.Cars().GetAsync(cityId); //need to filter by current bookings
 }

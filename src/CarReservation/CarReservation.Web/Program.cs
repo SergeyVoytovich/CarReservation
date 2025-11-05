@@ -1,5 +1,6 @@
 using CarReservation.Web.Components;
 using CarReservation.Web.Data;
+using CarReservation.Web.Mapping;
 using CarReservation.Web.Navigation;
 using CarReservation.Web.Services;
 using CarReservation.Web.VIewModels;
@@ -17,11 +18,12 @@ builder.Services
     .AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// Add custim services
+// Add custom services
 builder.Services
         .AddData()
         .AddServices()
-        .AddViewModels();
+        .AddViewModels()
+        .AddMapping();
 
 var app = builder.Build();
 

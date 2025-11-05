@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace CarReservation.Web.Components;
 
-public class ViewBase<T> : ComponentBase where T : ViewModelBase
+public class ViewBase<T> : ComponentBase where T : InitializedViewModelBase
 {
     [Inject]
     public T ViewModel { get; set; } = null!;

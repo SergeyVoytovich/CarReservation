@@ -7,10 +7,13 @@
 <Title Value="@Localizer[nameof(Resources.Book_Title)]" />
 
 <MudGrid>
-    <LoadingContainer IsLoading=ViewModel.IsInitialing>
+    <LoadingContainer IsLoading=@(!ViewModel.IsInitialized || ViewModel.IsInitialing)>
         <SearchItems ViewModel="@ViewModel" />
     </LoadingContainer>
-    <LoadingContainer IsLoading=@ViewModel.IsSearching>
-        data
-    </LoadingContainer>
+    @if (ViewModel.IsInitialized)
+    {
+        <LoadingContainer IsLoading=@ViewModel.IsSearching>
+            data
+        </LoadingContainer>
+    }
 </MudGrid>
