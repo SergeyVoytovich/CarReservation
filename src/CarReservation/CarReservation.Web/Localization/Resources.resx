@@ -162,6 +162,9 @@
   <data name="Book_UnableToComplete" xml:space="preserve">
     <value>Unable to complete booking</value>
   </data>
+  <data name="Column_Dates" xml:space="preserve">
+    <value>Booking dates</value>
+  </data>
   <data name="History_Title" xml:space="preserve">
     <value>My bookings</value>
   </data>

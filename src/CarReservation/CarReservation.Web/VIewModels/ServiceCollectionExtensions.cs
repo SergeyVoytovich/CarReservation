@@ -6,5 +6,6 @@ public static class ServiceCollectionExtensions
         => services
             .AddTransient<BookingSearchViewModel>()
             .AddTransient<NewBookingViewModel>()
+            .AddTransient<HistoryViewModel>()
         ;
 }

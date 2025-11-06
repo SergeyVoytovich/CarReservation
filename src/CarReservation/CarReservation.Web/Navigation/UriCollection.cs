@@ -6,7 +6,7 @@ public static class UriCollection
 {
     public const string Root = "/";
 
-    public const string History = $"{Root}my-bookings";
+    public const string History = $"{Root}history";
 
     public const string Error = $"{Root}error";
 

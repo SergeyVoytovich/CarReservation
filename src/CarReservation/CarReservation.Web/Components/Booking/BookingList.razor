@@ -11,6 +11,7 @@
             <PropertyColumn Property="p => p.LicensePlate"
                             Title="@Localizer[nameof(Resources.Book_LicencePlate)]" />
             <PropertyColumn Property="p => p.TotalPrice"
+                            Format="C"
                             Title="@Localizer[nameof(Resources.Book_Price)]" />
             <TemplateColumn Class="Bookings">
                 <CellTemplate>

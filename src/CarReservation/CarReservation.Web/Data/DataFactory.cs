@@ -8,15 +8,22 @@ internal class DataFactory
     private const int MaxCarsPerCity = 9;
     private const int MinPrice = 50;
     private const int MaxPrice = 150;
+    private const int BookingCount = 10;
+    private const int MaxBookingDays = 10;
 
     public DataSource Init() => Init(Cities().ToList());
 
     public DataSource Init(IList<City> cities)
-        => new()
+    {
+        var cars = Cars(cities).ToList();
+        var result = new DataSource
         {
             Cities = cities,
-            Cars = Cars(cities).ToList()
+            Cars = cars,
+            Bookings = Bookings(cars).ToList()
         };
+        return result;
+    }
 
     private IEnumerable<City> Cities()
     {
@@ -65,5 +72,28 @@ internal class DataFactory
                 };
             }
         }
+    }
+
+    private IEnumerable<Booking> Bookings(IList<Car> cars)
+    {
+        var random = new Random();
+
+        for (int i = 0; i < BookingCount; i++)
+        {
+            var start = DateOnly.FromDateTime(DateTime.Now.AddDays(random.Next(-1 * MaxBookingDays, MaxBookingDays)));
+            var end = start.AddDays(random.Next(1, MaxBookingDays));
+            var car = cars.ElementAt(random.Next(cars.Count));
+            yield return new Booking
+            {
+                Id = Guid.NewGuid(),
+                CarId = car.Id,
+                StartDate = start,
+                EndDate = start,
+                TotalPrice = car.PricePerDay * (end.DayNumber - start.DayNumber)
+            };
+        }
+
+        // No initial bookings
+        yield break;
     }
 }

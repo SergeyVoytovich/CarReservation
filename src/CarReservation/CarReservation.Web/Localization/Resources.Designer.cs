@@ -196,6 +196,15 @@ namespace CarReservation.Web.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Booking dates.
+        /// </summary>
+        public static string Column_Dates {
+            get {
+                return ResourceManager.GetString("Column_Dates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My bookings.
         /// </summary>
         public static string History_Title {

@@ -1,6 +1,20 @@
 ﻿@attribute [Route(UriCollection.History)]
 
-<h1>My reservations</h1>
+@inherits ViewBase<HistoryViewModel>
+
+@inject IStringLocalizer<Resources> Localizer
+
+<Title Value="@Localizer[nameof(Resources.History_Title)]" />
+
+<MudGrid>
+    <CascadingValue Value="ViewModel">
+        
+        <Loader IsLoading=@ViewModel.IsBusy>
+            <HistoryList />
+        </Loader>
+
+    </CascadingValue>
+</MudGrid>
 
 @code {
 

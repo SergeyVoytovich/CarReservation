@@ -1,0 +1,47 @@
+﻿@inject IStringLocalizer<Resources> Localizer
+
+<MudItem xs="12">
+    <MudDataGrid Items="ViewModel.Items"
+                 Filterable=true
+                 SortMode="SortMode.Multiple"
+                 Groupable=false>
+        <Columns>
+            <PropertyColumn Property="p => p.City.Name"
+                            Title="@Localizer[nameof(Resources.Book_City)]" />
+            <TemplateColumn Title="@Localizer[nameof(Resources.Book_Car)]">
+                <CellTemplate>
+                    @context.Item.Car.Make @context.Item.Car.Model
+                </CellTemplate>
+            </TemplateColumn>
+            <TemplateColumn Title="@Localizer[nameof(Resources.Column_Dates)]">
+                <CellTemplate>
+                    <MudStack>
+                        <span>from @context.Item.Booking.StartDate.ToShortDateString()</span>
+                        <span>till @context.Item.Booking.EndDate.ToShortDateString()</span>
+                    </MudStack>
+                </CellTemplate>
+            </TemplateColumn>
+            <PropertyColumn Property="p => p.Car.LicensePlate"
+                            Title="@Localizer[nameof(Resources.Book_LicencePlate)]" />
+            <PropertyColumn Property="p => p.Booking.TotalPrice"
+                            Title="@Localizer[nameof(Resources.Book_Price)]"
+                            Format="C" />
+            @* <TemplateColumn Class="Bookings">
+                <CellTemplate>
+                    <MudButton Size="Size.Small"
+                               Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               OnClick="@(e => ViewModel.BookCommand.Execute(context.Item))">
+                        @Localizer[nameof(Resources.Book_BookButton)]
+                    </MudButton>
+                </CellTemplate>
+            </TemplateColumn> *@
+        </Columns>
+    </MudDataGrid>
+</MudItem>
+
+@code
+{
+    [CascadingParameter]
+    public HistoryViewModel ViewModel { get; set; } = null!;
+}
