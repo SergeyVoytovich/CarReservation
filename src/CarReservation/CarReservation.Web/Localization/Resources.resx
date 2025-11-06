@@ -168,6 +168,12 @@
   <data name="Details" xml:space="preserve">
     <value>Details</value>
   </data>
+  <data name="HistoryDetails_NotFound" xml:space="preserve">
+    <value>Booking not found</value>
+  </data>
+  <data name="HistoryDetail_Title" xml:space="preserve">
+    <value>Booking details</value>
+  </data>
   <data name="History_Title" xml:space="preserve">
     <value>My bookings</value>
   </data>

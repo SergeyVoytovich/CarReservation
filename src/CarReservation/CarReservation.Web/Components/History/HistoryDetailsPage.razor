@@ -4,7 +4,20 @@
 
 @inject IStringLocalizer<Resources> Localizer
 
-<h3>HistoryDetailsPage</h3>
+<Title Value="@Localizer[nameof(Resources.HistoryDetail_Title)]" />
+
+<Alert IsVisible=@ViewModel.IsError
+       Severity="Severity.Error">
+    @Localizer[nameof(Resources.HistoryDetails_NotFound)]
+</Alert>
+
+<MudGrid>
+    <CascadingValue Value="ViewModel">
+        <Loader IsLoading=@(!ViewModel.IsInitialized || ViewModel.IsBusy)>
+            <HistoryDetailsForm />
+        </Loader>
+    </CascadingValue>
+</MudGrid>
 
 @code
 {

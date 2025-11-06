@@ -221,5 +221,23 @@ namespace CarReservation.Web.Localization {
                 return ResourceManager.GetString("History_Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Booking details.
+        /// </summary>
+        public static string HistoryDetail_Title {
+            get {
+                return ResourceManager.GetString("HistoryDetail_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Booking not found.
+        /// </summary>
+        public static string HistoryDetails_NotFound {
+            get {
+                return ResourceManager.GetString("HistoryDetails_NotFound", resourceCulture);
+            }
+        }
     }
 }
