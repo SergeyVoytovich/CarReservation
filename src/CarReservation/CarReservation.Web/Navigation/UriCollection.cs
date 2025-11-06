@@ -6,8 +6,6 @@ public static class UriCollection
 {
     public const string Root = "/";
 
-    public const string History = $"{Root}history";
-
     public const string Error = $"{Root}error";
 
 
@@ -45,5 +43,16 @@ public static class UriCollection
 
 
         }
+    }
+
+
+    public static class History
+    {
+        public const string Root = $"{UriCollection.Root}history";
+
+        public const string DetailsRoute = $"{History.Root}/{{id:guid}}";
+
+        public static string ToDetails(Guid id)
+            => $"{History.Root}/{id}";
     }
 }

@@ -1,0 +1,13 @@
+﻿@inherits ViewBase<HistoryDetailsViewModel>
+
+@attribute [Route(UriCollection.History.DetailsRoute)]
+
+@inject IStringLocalizer<Resources> Localizer
+
+<h3>HistoryDetailsPage</h3>
+
+@code
+{
+    [Parameter]
+    public Guid Id { get; set; }
+}

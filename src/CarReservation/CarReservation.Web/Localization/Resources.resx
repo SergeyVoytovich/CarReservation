@@ -165,6 +165,9 @@
   <data name="Column_Dates" xml:space="preserve">
     <value>Booking dates</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
   <data name="History_Title" xml:space="preserve">
     <value>My bookings</value>
   </data>

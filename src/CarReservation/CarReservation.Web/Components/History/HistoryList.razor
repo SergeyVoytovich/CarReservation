@@ -26,16 +26,16 @@
             <PropertyColumn Property="p => p.Booking.TotalPrice"
                             Title="@Localizer[nameof(Resources.Book_Price)]"
                             Format="C" />
-            @* <TemplateColumn Class="Bookings">
+            <TemplateColumn Class="Bookings">
                 <CellTemplate>
                     <MudButton Size="Size.Small"
                                Variant="Variant.Filled"
                                Color="Color.Primary"
-                               OnClick="@(e => ViewModel.BookCommand.Execute(context.Item))">
-                        @Localizer[nameof(Resources.Book_BookButton)]
+                               OnClick="@(e => ViewModel.DetailwCommand.Execute(context.Item))">
+                        @Localizer[nameof(Resources.Details)]
                     </MudButton>
                 </CellTemplate>
-            </TemplateColumn> *@
+            </TemplateColumn>
         </Columns>
     </MudDataGrid>
 </MudItem>

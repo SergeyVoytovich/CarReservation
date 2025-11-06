@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using CarReservation.Web.Domain;
+using CarReservation.Web.Navigation;
 using CarReservation.Web.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.AspNetCore.Components;
 using System.Runtime.InteropServices.Marshalling;
 
@@ -14,6 +16,9 @@ public partial class HistoryViewModel(IBookingService service, IMapper mapper, N
 
     [ObservableProperty]
     private IList<HistoryItem> items = [];
+
+    [RelayCommand]
+    private Task Detailw(HistoryItem item) => GoToDetailsAsync(item);
 
     #endregion
 
@@ -43,6 +48,12 @@ public partial class HistoryViewModel(IBookingService service, IMapper mapper, N
         };
         historyItem.City = cities.ById(historyItem.Car.CityId).Single();
         return historyItem;
+    }
+
+    protected virtual Task GoToDetailsAsync(HistoryItem item)
+    {
+        Navigator.NavigateTo(UriCollection.History.ToDetails(item.Booking.Id));
+        return Task.CompletedTask;
     }
 }
 
