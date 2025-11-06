@@ -21,5 +21,6 @@ public class BookingProfile : Profile
             .ForMember(dst => dst.EndDate, opt => opt.MapFrom(src => DateOnly.FromDateTime(src.EndDate!.Value)))
             .ForMember(dst => dst.TotalPrice, opt => opt.MapFrom(src => src.TotalPrice))
             ;
+
     }
 }

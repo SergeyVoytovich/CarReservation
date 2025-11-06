@@ -1,10 +1,19 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AutoMapper;
+using CarReservation.Web.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.AspNetCore.Components;
 
 namespace CarReservation.Web.VIewModels;
 
-public abstract partial class ViewModelBase : ObservableObject
+public abstract partial class ViewModelBase(IBookingService service, IMapper mapper, NavigationManager navigator) : ObservableObject
 {
+    protected virtual IBookingService Service { get; } = service;
+    protected virtual IMapper Mapper { get; } = mapper;
+    protected virtual NavigationManager Navigator { get; } = navigator;
+
+
+
     [ObservableProperty]
     private bool isBusy = true;
 
@@ -14,19 +23,4 @@ public abstract partial class ViewModelBase : ObservableObject
         await action.Invoke();
         IsBusy = false;
     }
-}
-
-public abstract partial class InitializedViewModelBase : ViewModelBase
-{
-    [ObservableProperty]
-    private bool isInitialized;
-
-    public Task InitializeAsync()
-        => BusyAsync(async () =>
-        {
-            await DoInitializeAsync();
-            IsInitialized = true;
-        });
-
-    protected abstract Task DoInitializeAsync();
 }

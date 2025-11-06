@@ -104,6 +104,11 @@ internal class BookingService(IRepositoryCollection repositories) : IBookingServ
         }
 
         var car = await Repositories.Cars().GetAsync(booking.CarId);
+        if (car is null)
+        {
+            return BookingResult.CarIsNotAvailable;
+        }
+
         car = await CheckAvailabilityAsync(car, booking.StartDate, booking.EndDate);
 
         if (car is null)
@@ -120,5 +125,19 @@ internal class BookingService(IRepositoryCollection repositories) : IBookingServ
         await Task.Delay(TimeSpan.FromMilliseconds(500));
 
         return await Repositories.Bookings().GetAsync();
+    }
+
+    public async Task<IList<City>> GetCitiesAsync(IList<Guid> ids)
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(500));
+
+        return await Repositories.Cities().GetAsync(ids);
+    }
+
+    public async Task<IList<Car>> GetCarsAsync(IList<Guid> ids)
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(500));
+
+        return await Repositories.Cars().GetAsync(ids);
     }
 }

@@ -9,12 +9,9 @@ using MudBlazor.Extensions;
 
 namespace CarReservation.Web.VIewModels;
 
-public partial class NewBookingViewModel(IBookingService service, IMapper mapper, NavigationManager navigator) : InitializedViewModelBase
+public partial class NewBookingViewModel(IBookingService service, IMapper mapper, NavigationManager navigator) 
+    : InitializedViewModelBase(service, mapper, navigator)
 {
-    protected virtual IBookingService Service { get; } = service;
-    protected virtual IMapper Mapper { get; } = mapper;
-    protected virtual NavigationManager Navigator { get; } = navigator;
-
 
     #region MVVM
 
